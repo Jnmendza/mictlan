@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useImageModal } from "./ImageModalProvider";
 
 // Ensure plugins are registered
 if (typeof window !== "undefined") {
@@ -46,6 +47,7 @@ const mockImages = [
 
 export default function CemeteriesGallery() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { openModal } = useImageModal();
 
   useGSAP(
     () => {
@@ -104,10 +106,11 @@ export default function CemeteriesGallery() {
           return (
             <div
               key={img.id}
-              className={`cemetery-card group relative h-[50vh] w-full overflow-hidden rounded-md border border-zinc-800/50 bg-zinc-900 shadow-2xl md:h-[60vh] 
+              className={`cemetery-card group relative h-[50vh] w-full overflow-hidden rounded-md border border-zinc-800/50 bg-zinc-900 shadow-2xl md:h-[60vh] cursor-pointer
                 ${isMiddleColumn ? "lg:mt-32" : ""}
                 ${isLastColumn ? "md:mt-16 lg:mt-0" : ""}
               `}
+              onClick={() => openModal(img.url, img.alt)}
             >
               <div className='absolute inset-0 flex items-center justify-center text-parchment/30 opacity-100 transition-opacity group-has-[img]:opacity-0'>
                 <span className='font-sans text-sm tracking-widest uppercase'>

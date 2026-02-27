@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useImageModal } from "./ImageModalProvider";
 
 // Ensure plugins are registered
 if (typeof window !== "undefined") {
@@ -32,10 +33,21 @@ const mockImages = [
     url: "https://nargtjqnjvwljfhrzvmk.supabase.co/storage/v1/object/public/images/gallery/People/People4.jpg",
     alt: "Living Altar Portrait 4",
   },
+  {
+    id: 5,
+    url: "https://nargtjqnjvwljfhrzvmk.supabase.co/storage/v1/object/public/images/gallery/People/People5.jpg",
+    alt: "Living Altar Portrait 5",
+  },
+  {
+    id: 7,
+    url: "https://nargtjqnjvwljfhrzvmk.supabase.co/storage/v1/object/public/images/gallery/People/People7.jpg",
+    alt: "Living Altar Portrait 7",
+  },
 ];
 
 export default function PeopleGallery() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { openModal } = useImageModal();
 
   useGSAP(
     () => {
@@ -103,7 +115,8 @@ export default function PeopleGallery() {
           {mockImages.map((img, index) => (
             <div
               key={img.id}
-              className='portrait-card group relative h-[80vh] w-full overflow-hidden rounded-md border border-zinc-800/50 bg-zinc-900 shadow-2xl'
+              className='portrait-card group relative h-[80vh] w-full overflow-hidden rounded-md border border-zinc-800/50 bg-zinc-900 shadow-2xl cursor-pointer'
+              onClick={() => openModal(img.url, img.alt)}
             >
               <div className='absolute inset-0 flex items-center justify-center text-parchment/30 opacity-100 transition-opacity group-has-[img]:opacity-0'>
                 <span className='font-sans text-sm tracking-widest uppercase'>

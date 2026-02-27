@@ -1,6 +1,7 @@
 import Hero from "@/components/Hero";
 import StreetsGallery from "@/components/StreetsGallery";
 import AltarsGallery from "@/components/AltarsGallery";
+import Breather from "@/components/Breather";
 import CemeteriesGallery from "@/components/CemeteriesGallery";
 import PeopleGallery from "@/components/PeopleGallery";
 import Footer from "@/components/Footer";
@@ -13,6 +14,7 @@ export default function Home() {
         <Hero />
         <StreetsGallery />
         <AltarsGallery />
+        <Breather />
         <CemeteriesGallery />
         <PeopleGallery />
         <Footer />

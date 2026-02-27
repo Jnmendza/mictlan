@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useImageModal } from "./ImageModalProvider";
 
 // Ensure plugins are registered
 if (typeof window !== "undefined") {
@@ -47,6 +48,7 @@ const mockImages = [
 export default function AltarsGallery() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { openModal } = useImageModal();
 
   useGSAP(
     () => {
@@ -63,7 +65,7 @@ export default function AltarsGallery() {
           trigger: section,
           start: "top top",
           pin: true,
-          scrub: true,
+          scrub: 1.5, // Heavier scrub for luxurious horizontal drag
           end: () => `+=${getScrollAmount()}`,
           invalidateOnRefresh: true,
         },
@@ -91,7 +93,7 @@ export default function AltarsGallery() {
             02. The Altars
           </p>
           <h2 className='font-heading text-5xl font-bold leading-tight text-accent-marigold md:text-6xl lg:text-7xl'>
-            Offerings in the <br className='hidden lg:block' /> Dark
+            Offerings to the <br className='hidden lg:block' /> Ancestors
           </h2>
           <p className='mt-6 font-sans text-lg leading-relaxed text-parchment/80'>
             Intimate glow of candlelight, scent of copal, and the vivid colors
@@ -104,7 +106,8 @@ export default function AltarsGallery() {
         {mockImages.map((img) => (
           <div
             key={img.id}
-            className='group relative h-[60vh] w-[80vw] shrink-0 overflow-hidden rounded-md border border-zinc-800/50 bg-zinc-900 shadow-2xl md:h-[70vh] md:w-[60vw] lg:w-[50vw]'
+            className='group relative h-[60vh] w-[80vw] shrink-0 overflow-hidden rounded-md border border-zinc-800/50 bg-zinc-900 shadow-2xl md:h-[70vh] md:w-[60vw] lg:w-[50vw] cursor-pointer'
+            onClick={() => openModal(img.url, img.alt)}
           >
             <div className='absolute inset-0 flex items-center justify-center text-parchment/30 opacity-100 transition-opacity group-has-[img]:opacity-0'>
               <span className='font-sans text-sm tracking-widest uppercase'>

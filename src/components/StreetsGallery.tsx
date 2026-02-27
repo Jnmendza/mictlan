@@ -5,6 +5,7 @@ import Image from "next/image";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useImageModal } from "./ImageModalProvider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,32 +19,33 @@ const images = [
   {
     id: 2,
     url: "https://nargtjqnjvwljfhrzvmk.supabase.co/storage/v1/object/public/images/gallery/StreetArt/StreetArt5.jpg",
-    alt: "Street artist at work painting a mural",
+    alt: "Street art of a colorful owl",
     className:
       "col-span-12 md:col-span-6 md:col-start-6 h-[50vh] md:mt-[-10vh]",
   },
   {
     id: 3,
     url: "https://nargtjqnjvwljfhrzvmk.supabase.co/storage/v1/object/public/images/gallery/StreetArt/StreetArt2.jpg",
-    alt: "Colorful skeleton figure mural",
+    alt: "Jaguar mural",
     className: "col-span-12 md:col-span-5 md:col-start-2 h-[70vh] md:mt-24",
   },
   {
     id: 4,
     url: "https://nargtjqnjvwljfhrzvmk.supabase.co/storage/v1/object/public/images/gallery/StreetArt/StreetArt10.jpg",
-    alt: "Large scale Day of the Dead mural on a building",
-    className: "col-span-12 md:col-span-7 md:col-start-6 h-[40vh] md:mt-12",
+    alt: "Large scale of the Virgin Mary on a building",
+    className: "col-span-12 md:col-span-7 md:col-start-6 h-[90vh] md:mt-12",
   },
   {
     id: 5,
     url: "https://nargtjqnjvwljfhrzvmk.supabase.co/storage/v1/object/public/images/gallery/StreetArt/StreetArt1.jpg",
-    alt: "Detail of an offering painted on a wall",
+    alt: "Luchador mural",
     className: "col-span-12 md:col-span-8 md:col-start-3 h-[80vh] md:mt-24",
   },
 ];
 
 export default function StreetsGallery() {
   const container = useRef<HTMLDivElement>(null);
+  const { openModal } = useImageModal();
 
   useGSAP(
     () => {
@@ -108,8 +110,8 @@ export default function StreetsGallery() {
           </h2>
           <p className='font-sans text-parchment/80 mt-6 max-w-md text-lg leading-relaxed'>
             The walls of Oaxaca breathe history. During Día de los Muertos, the
-            streets transform into a vibrant canvas of marigolds, copal smoke,
-            and vivid murals that honor the returning spirits.
+            streets transform into a vibrant canvas of vivid murals that
+            showcase the rich culture and traditions of the region.
           </p>
         </div>
 
@@ -118,7 +120,8 @@ export default function StreetsGallery() {
           {images.map((img) => (
             <div
               key={img.id}
-              className={`gallery-item relative overflow-hidden bg-zinc-900/50 rounded-lg ${img.className}`}
+              className={`gallery-item relative overflow-hidden bg-zinc-900/50 rounded-lg ${img.className} cursor-pointer`}
+              onClick={() => openModal(img.url, img.alt)}
             >
               <Image
                 src={img.url}

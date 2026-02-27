@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Cinzel_Decorative } from "next/font/google";
 import SmoothScroll from "@/components/smooth-scroll";
+import CustomCursor from "@/components/CustomCursor";
+import Preloader from "@/components/Preloader";
+import ImageModalProvider from "@/components/ImageModalProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -37,10 +40,16 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${cinzelDecorative.variable} antialiased selection:bg-accent-marigold selection:text-obsidian`}
+        className={`selection:bg-carmine selection:text-parchment ${geistSans.variable} ${geistMono.variable} ${cinzelDecorative.variable} antialiased selection:bg-accent-marigold selection:text-obsidian`}
         suppressHydrationWarning
       >
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          <ImageModalProvider>
+            <Preloader />
+            <CustomCursor />
+            {children}
+          </ImageModalProvider>
+        </SmoothScroll>
       </body>
     </html>
   );

@@ -23,3 +23,10 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+/* Hide default cursor only on devices with a mouse/trackpad to allow custom cursor */
+@media (hover: hover) and (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
