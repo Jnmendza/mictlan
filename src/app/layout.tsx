@@ -43,6 +43,12 @@ export default function RootLayout({
         className={`selection:bg-carmine selection:text-parchment ${geistSans.variable} ${geistMono.variable} ${cinzelDecorative.variable} antialiased selection:bg-accent-marigold selection:text-obsidian`}
         suppressHydrationWarning
       >
+        {/* Global Film Grain / Noise Overlay */}
+        <div
+          className='pointer-events-none fixed inset-0 h-full w-full opacity-[0.05]'
+          style={{ backgroundImage: "url('/noise.svg')" }}
+        />
+
         <SmoothScroll>
           <ImageModalProvider>
             <Preloader />

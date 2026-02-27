@@ -4,7 +4,8 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 export default function CustomCursor() {
-  const cursorRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -13,19 +14,20 @@ export default function CustomCursor() {
       return;
     }
 
-    const cursor = cursorRef.current;
+    const container = containerRef.current;
+    const dot = dotRef.current;
     const text = textRef.current;
-    if (!cursor || !text) return;
+    if (!container || !dot || !text) return;
 
-    // Reveal cursor
-    gsap.set(cursor, { opacity: 1 });
+    // Reveal cursor container
+    gsap.set(container, { opacity: 1, xPercent: -50, yPercent: -50 });
 
     // Use GSAP's quickTo for high-performance, lag-free cursor tracking
-    const xTo = gsap.quickTo(cursor, "x", {
+    const xTo = gsap.quickTo(container, "x", {
       duration: 0.15,
       ease: "power3.out",
     });
-    const yTo = gsap.quickTo(cursor, "y", {
+    const yTo = gsap.quickTo(container, "y", {
       duration: 0.15,
       ease: "power3.out",
     });
@@ -40,23 +42,27 @@ export default function CustomCursor() {
         text.innerText = isCloseAction ? "CLOSE" : "VIEW";
       }
 
-      gsap.to(cursor, {
-        scale: 4,
+      gsap.to(dot, {
+        width: 64,
+        height: 64,
         backgroundColor: isCloseAction
-          ? "rgba(217, 4, 41, 0.1)"
-          : "transparent", // tint carmine if closing
+          ? "rgba(217, 4, 41, 0.4)"
+          : "rgba(240, 169, 77, 0.4)",
+        backdropFilter: "blur(8px)",
         border: isCloseAction
-          ? "1px solid rgba(217, 4, 41, 0.5)"
-          : "1px solid rgba(240, 169, 77, 0.5)",
+          ? "1px solid rgba(217, 4, 41, 0.8)"
+          : "1px solid rgba(240, 169, 77, 0.8)",
         duration: 0.3,
       });
       gsap.to(text, { opacity: 1, duration: 0.3 });
     };
 
     const handleHoverLeave = () => {
-      gsap.to(cursor, {
-        scale: 1,
-        backgroundColor: "#F0A94D", // accent-marigold
+      gsap.to(dot, {
+        width: 16,
+        height: 16,
+        backgroundColor: "rgba(240, 169, 77, 1)",
+        backdropFilter: "blur(0px)",
         border: "0px solid transparent",
         duration: 0.3,
       });
@@ -145,13 +151,19 @@ export default function CustomCursor() {
 
   return (
     <div
-      ref={cursorRef}
-      className='pointer-events-none fixed left-0 top-0 z-[9999999] flex h-4 w-4 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-accent-marigold mix-blend-difference opacity-0'
+      ref={containerRef}
+      className='pointer-events-none fixed left-0 top-0 z-[999999999] opacity-0 flex items-center justify-center'
       style={{ willChange: "transform" }}
     >
+      <div
+        ref={dotRef}
+        className='absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex h-4 w-4 items-center justify-center rounded-full bg-accent-marigold shadow-lg backdrop-blur-none origin-center'
+        style={{ willChange: "width, height" }}
+      />
       <span
         ref={textRef}
-        className='font-sans text-[4px] font-bold tracking-widest text-parchment opacity-0 uppercase'
+        className='relative z-10 font-sans text-[12px] md:text-[14px] font-bold tracking-widest text-[#0b090a] opacity-0 uppercase drop-shadow-sm'
+        style={{ transform: "translateZ(0)", backfaceVisibility: "hidden" }}
       >
         View
       </span>
