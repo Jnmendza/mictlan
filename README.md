@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mictlán | Day of the Dead in Oaxaca
+
+A stunning visual journey through the vibrant colors, art, and reverence of Día de los Muertos.
+
+## Overview
+
+Mictlán is a highly interactive, visually immersive web experience built to showcase the beauty of the Day of the Dead celebrations. It features a curated collection of galleries capturing the essence of the streets, altars, cemeteries, and people of Oaxaca during this sacred time.
+
+## Features
+
+- **Immersive Visuals**: High-resolution image galleries highlighting the rich textures and colors of Oaxaca, with a custom modal viewer.
+- **Micro-Animations & Transitions**: Powered by [GSAP](https://gsap.com/) for a premium, polished feel, including an engaging preloader and reveal animations.
+- **Smooth Scrolling**: Implemented using [Lenis](https://lenis.studiofreight.com/) for fluid, momentum-based scrolling.
+- **Custom Cursor**: A context-aware custom cursor that enhances interactivity.
+- **Thematic Styling**: Custom color palette (obsidian, parchment, carmine, marigold) and global film grain overlay to evoke a cinematic, documentary feel.
+- **Typography**: Utilizing `next/font` with Geist (sans/mono) and Cinzel Decorative for elegant headings.
+
+## Tech Stack
+
+- **Framework**: [Next.js 15+ App Router](https://nextjs.org/) (React 19)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Animations**: GSAP (`@gsap/react`)
+- **Scroll**: Lenis
+- **Icons**: [Lucide React](https://lucide.dev/)
 
 ## Getting Started
 
-First, run the development server:
+1. **Install dependencies**:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+   ```bash
+   npm install
+   # or yarn / pnpm / bun
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Run the development server**:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+   ```bash
+   npm run dev
+   # or yarn dev / pnpm dev / bun dev
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Open your browser** to [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+- `src/app/`: Next.js app routes (`layout.tsx`, `page.tsx`, `globals.css`).
+- `src/components/`: Reusable React components including the core layout blocks (`Hero`, `Footer`) and specialized gallery sections (`StreetsGallery`, `AltarsGallery`, `CemeteriesGallery`, `PeopleGallery`).
+- `public/`: Static assets such as images and the `noise.svg` overlay.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+_Created as a showcase of modern front-end development, fluid motion, and visual storytelling._
